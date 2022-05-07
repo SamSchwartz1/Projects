@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            Log in/Register 
+        </title>
+    </head>
+    <body>
+        <h2>
+            Log-in!
+        </h2>
+        <form name = "input" action='login.php' method = "POST">
+            Username:
+            <input type="text" id="usery" name="usery"><br><br>
+            Password:
+            <input type = "text" id = "pass" name = "pass"> <br><br>
+            <input type="Submit" value="Login"><br><br>
+        </form>
+        <h2>
+            Register!
+        </h2>
+        <form name = "input" action = "register.php" method = "POST">
+            Enter a Username:
+            <input type="text" id="newUser" name="newUser"><br><br>
+            Enter a Password:
+            <input type = "text" id = "newPass" name = "newPass"> <br><br>
+            <input type = 'Submit' value = "Register">
+        </form>
+        <h2>
+            Continue as a guest:
+            <a href = "mainpage.php" class = "guests"> Guest Login</a>
+        </h2>
+
+    </body>
+</html>
