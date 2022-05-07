@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" type = "text/css" href = "style.css" />
+    <title> Sam and William's Creative Project</title>
+</head>
+<body>
+    <br><br><br>
+    <div class = "statSearch">
+        <input type = text placeholder = "Enter a player's name" class = "nameInput" id = "inp1">
+        <select name = "yrs" class = "years" id = "drp1">
+            <option value = "2010">2010-2011</option>
+            <option value = "2011">2011-2012</option>
+            <option value = "2012">2012-2013</option>
+            <option value = "2013">2013-2014</option>
+            <option value = "2014">2014-2015</option>
+            <option value = "2015">2015-2016</option>
+            <option value = "2016">2016-2017</option>
+            <option value = "2017">2017-2018</option>
+            <option value = "2018">2018-2019</option>
+            <option value = "2019">2019-2020</option>
+        </select>
+        <button id = "dispStat" onclick="searchStat()"> Search for a player's stats </button>
+        <div class = "textContainer" id = "cont1">
+        </div>
+    
+    </div>
+
+    <br> <br><br>
+    <div class = "playerComp">
+        <input type = text placeholder = "Enter Player 1's name" class = "nameInput" id = "comp1">
+        <select name = "yrs" class = "years" id = "drp2">
+            <option value = "2010">2010-2011</option>
+            <option value = "2011">2011-2012</option>
+            <option value = "2012">2012-2013</option>
+            <option value = "2013">2013-2014</option>
+            <option value = "2014">2014-2015</option>
+            <option value = "2015">2015-2016</option>
+            <option value = "2016">2016-2017</option>
+            <option value = "2017">2017-2018</option>
+            <option value = "2018">2018-2019</option>
+            <option value = "2019">2019-2020</option>
+        </select>
+        <input type = text placeholder = "Enter Player 2's name" class = "nameInput" id = "comp2">
+        <select name = "yrs" class = "years" id = "drp3">
+            <option value = "2010">2010-2011</option>
+            <option value = "2011">2011-2012</option>
+            <option value = "2012">2012-2013</option>
+            <option value = "2013">2013-2014</option>
+            <option value = "2014">2014-2015</option>
+            <option value = "2015">2015-2016</option>
+            <option value = "2016">2016-2017</option>
+            <option value = "2017">2017-2018</option>
+            <option value = "2018">2018-2019</option>
+            <option value = "2019">2019-2020</option>
+        </select>
+        <button id = "dispComp" onclick = "playerComp()"> Compare Stats!</button>
+        <div class = "tableContainer" id = "cont2">
+            <table id = "tab">
+                <tr> 
+                    <th> Value</th>
+                    <th> Player 1</th>
+                    <th> Player 2</th>
+                </tr>
+                <tr>
+                    <td> Assits Per Game: </td>
+                    <td id = "apg1"> </td>
+                    <td id = "apg2"> </td>
+                </tr>
+                <tr>
+                    <td> Blocks Per Game: </td>
+                    <td id = "bpg1"> </td>
+                    <td id = "bpg2"> </td> 
+                </tr>
+                <tr> 
+                    <td> FG%: </td>
+                    <td id = "fg1"> </td>
+                    <td id = "fg2"> </td> 
+                </tr>
+                <tr> 
+                    <td> FT%: </td>
+                    <td id = "ft1"> </td>
+                    <td id = "ft2"> </td> 
+                </tr>
+                <tr> 
+                    <td> Minutes Per Game: </td>
+                    <td id = "mpg1"> </td>
+                    <td id = "mpg2"> </td> 
+                </tr>
+                <tr> 
+                    <td> Points Per Game: </td>
+                    <td id = "ppg1"> </td>
+                    <td id = "ppg2"></td> 
+                </tr>
+                <tr> 
+                    <td> Rebounds Per Game: </td>
+                    <td id = "rpg1"> </td>
+                    <td id = "rpg2"> </td> 
+                </tr>
+                <tr> 
+                    <td> Steals Per Game: </td>
+                    <td id = "spg1"> </td>
+                    <td id = "spg2"> </td> 
+                </tr>
+                <tr> 
+                    <td> 3PT%: </td>
+                    <td id = "thfg1"> </td>
+                    <td id = "thfg2"> </td> 
+                </tr>
+                <tr> 
+                    <td> Turnovers Per Game: </td>
+                    <td id = "tpg1"> </td>
+                    <td id = "tpg2"> </td> 
+                </tr>
+                <tr> 
+                    <td> 2PT%: </td>
+                    <td id = "twfg1">  </td>
+                    <td id = "twfg2"> </td> 
+                </tr>
+               
+            </table>
+
+        </div>
+    </div>
+    <script>
+        function ajaxCallback(event){
+            let data = JSON.parse(event.target.responseText);
+            let name = document.getElementById("inp1").value;
+            console.log(data[name]);
+            document.getElementById("cont1").innerHTML+= ("Assits per game: " + data[name]);
+            document.getElementById("cont1").appendChild(document.createElement("hr"));
+        }
+        function ajaxCallback2(event){
+            let data = JSON.parse(event.target.responseText);
+            let name = document.getElementById("inp1").value;
+            console.log(data[name]);
+            document.getElementById("cont1").innerHTML+= ("Blocks per game: " + data[name]);
+            document.getElementById("cont1").appendChild(document.createElement("hr"));
+        }
+        function ajaxCallback3(event){
+            let data = JSON.parse(event.target.responseText);
+            let name = document.getElementById("inp1").value;
+            console.log(data[name]);
+            document.getElementById("cont1").innerHTML+= ("FG%: " + data[name]);
+            document.getElementById("cont1").appendChild(document.createElement("hr"));
+        }
+        function ajaxCallback4(event){
+            let data = JSON.parse(event.target.responseText);
+            let name = document.getElementById("inp1").value;
+            console.log(data[name]);
+            document.getElementById("cont1").innerHTML+= ("FT%: " + data[name]);
+            document.getElementById("cont1").appendChild(document.createElement("hr"));
+        }
+        function ajaxCallback5(event){
+            let data = JSON.parse(event.target.responseText);
+            let name = document.getElementById("inp1").value;
+            console.log(data[name]);
+            document.getElementById("cont1").innerHTML+= ("Minutes Per Game: " + data[name]);
+            document.getElementById("cont1").appendChild(document.createElement("hr"));
+        }
+        function ajaxCallback6(event){
+            let data = JSON.parse(event.target.responseText);
+            let name = document.getElementById("inp1").value;
+            console.log(data[name]);
+            document.getElementById("cont1").innerHTML+= ("Points Per Game: " + data[name]);
+            document.getElementById("cont1").appendChild(document.createElement("hr"));
+        }
+        function ajaxCallback7(event){
+            let data = JSON.parse(event.target.responseText);
+            let name = document.getElementById("inp1").value;
+            console.log(data[name]);
+            document.getElementById("cont1").innerHTML+= ("Rebounds Per Game: " + data[name]);
+            document.getElementById("cont1").appendChild(document.createElement("hr"));
+        }
+        function ajaxCallback8(event){
+            let data = JSON.parse(event.target.responseText);
+            let name = document.getElementById("inp1").value;
+            console.log(data[name]);
+            document.getElementById("cont1").innerHTML+= ("Steals Per Game: " + data[name]);
+            document.getElementById("cont1").appendChild(document.createElement("hr"));
+        }
+        function ajaxCallback9(event){
+            let data = JSON.parse(event.target.responseText);
+            let name = document.getElementById("inp1").value;
+            console.log(data[name]);
+            document.getElementById("cont1").innerHTML+= ("3PT%: " + data[name]);
+            document.getElementById("cont1").appendChild(document.createElement("hr"));
+        }
+        function ajaxCallback10(event){
+            let data = JSON.parse(event.target.responseText);
+            let name = document.getElementById("inp1").value;
+            console.log(data[name]);
+            document.getElementById("cont1").innerHTML+= ("Turnovers Per Game: " + data[name]);
+            document.getElementById("cont1").appendChild(document.createElement("hr"));
+        }
+        function ajaxCallback11(event){
+            let data = JSON.parse(event.target.responseText);
+            let name = document.getElementById("inp1").value;
+            console.log(data[name]);
+            document.getElementById("cont1").innerHTML+= ("2PT%: " + data[name]);
+            document.getElementById("cont1").appendChild(document.createElement("hr"));
+        }
+
+        /* ------------------------------------------------------------------------------------------------------------------------- */
+        /* ------------------------------------------------------------------------------------------------------------------------- */
+        
+         function axCallback(event){
+            let data = JSON.parse(event.target.responseText);
+            let name2 = document.getElementById("comp2").value;
+            document.getElementById("apg2").innerHTML = data[name2];
+            let val1 = Number(document.getElementById("apg1").innerHTML);
+            let val2 = Number(document.getElementById("apg2").innerHTML);
+            if(val1 > val2){
+                document.getElementById("apg1").style.backgroundColor = "green";
+                document.getElementById("apg2").style.backgroundColor = "red";
+            }
+            else if (val2 > val1){
+                document.getElementById("apg1").style.backgroundColor = "red";
+                document.getElementById("apg2").style.backgroundColor = "green";
+            }
+            else{
+                document.getElementById("apg1").style.backgroundColor = "yellow";
+                document.getElementById("apg2").style.backgroundColor = "yellow";
+            }
+        }
+        function axCallback2(event){
+            let data = JSON.parse(event.target.responseText);
+            let name2 = document.getElementById("comp2").value;
+            document.getElementById("bpg2").innerHTML = data[name2];
+            let val3 = Number(document.getElementById("bpg1").innerHTML);
+            let val4 = Number(document.getElementById("bpg2").innerHTML);
+            console.log(val3);
+            console.log(val4);
+            if(val3 > val4){
+                document.getElementById("bpg1").style.backgroundColor = "green";
+                document.getElementById("bpg2").style.backgroundColor = "red";
+            }
+            else if (val4 > val3){
+                document.getElementById("bpg1").style.backgroundColor = "red";
+                document.getElementById("bpg2").style.backgroundColor = "green";
+            }
+            else{
+                document.getElementById("bpg1").style.backgroundColor = "yellow";
+                document.getElementById("bpg2").style.backgroundColor = "yellow";
+            }
+        }
+        function axCallback3(event){
+            let data = JSON.parse(event.target.responseText);
+            let name2 = document.getElementById("comp2").value;
+            document.getElementById("fg2").innerHTML = data[name2];
+            document.getElementById("bpg2").innerHTML = data[name2];
+            let val1 = Number(document.getElementById("fg1").innerHTML);
+            let val2 = Number(document.getElementById("fg2").innerHTML);
+            if(val1 > val2){
+                document.getElementById("fg1").style.backgroundColor = "green";
+                document.getElementById("fg2").style.backgroundColor = "red";
+            }
+            else if (val2 > val1){
+                document.getElementById("fg1").style.backgroundColor = "red";
+                document.getElementById("fg2").style.backgroundColor = "green";
+            }
+            else{
+                document.getElementById("fg1").style.backgroundColor = "yellow";
+                document.getElementById("fg2").style.backgroundColor = "yellow";
+            }
+        }
+        function axCallback4(event){
+            let data = JSON.parse(event.target.responseText);
+            let name2 = document.getElementById("comp2").value;
+            document.getElementById("ft2").innerHTML = data[name2];
+            let val1 = Number(document.getElementById("ft1").innerHTML);
+            let val2 = Number(document.getElementById("ft2").innerHTML);
+            if(val1 > val2){
+                document.getElementById("ft1").style.backgroundColor = "green";
+                document.getElementById("ft2").style.backgroundColor = "red";
+            }
+            else if (val2 > val1){
+                document.getElementById("ft1").style.backgroundColor = "red";
+                document.getElementById("ft2").style.backgroundColor = "green";
+            }
+            else{
+                document.getElementById("ft1").style.backgroundColor = "yellow";
+                document.getElementById("ft2").style.backgroundColor = "yellow";
+            }
+        }
+        function axCallback5(event){
+            let data = JSON.parse(event.target.responseText);
+            let name2 = document.getElementById("comp2").value;
+            document.getElementById("mpg2").innerHTML = data[name2];
+            let val1 = Number(document.getElementById("mpg1").innerHTML);
+            let val2 = Number(document.getElementById("mpg2").innerHTML);
+            if(val1 > val2){
+                document.getElementById("mpg1").style.backgroundColor = "green";
+                document.getElementById("mpg2").style.backgroundColor = "red";
+            }
+            else if (val2 > val1){
+                document.getElementById("mpg1").style.backgroundColor = "red";
+                document.getElementById("mpg2").style.backgroundColor = "green";
+            }
+            else{
+                document.getElementById("mpg1").style.backgroundColor = "yellow";
+                document.getElementById("mpg2").style.backgroundColor = "yellow";
+            }
+        }
+        function axCallback6(event){
+            let data = JSON.parse(event.target.responseText);
+            let name2 = document.getElementById("comp2").value;
+            document.getElementById("ppg2").innerHTML = data[name2];
+            let val1 = Number(document.getElementById("ppg1").innerHTML);
+            let val2 = Number(document.getElementById("ppg2").innerHTML);
+            if(val1 > val2){
+                document.getElementById("ppg1").style.backgroundColor = "green";
+                document.getElementById("ppg2").style.backgroundColor = "red";
+            }
+            else if (val2 > val1){
+                document.getElementById("ppg1").style.backgroundColor = "red";
+                document.getElementById("ppg2").style.backgroundColor = "green";
+            }
+            else{
+                document.getElementById("ppg1").style.backgroundColor = "yellow";
+                document.getElementById("ppg2").style.backgroundColor = "yellow";
+            }
+        }
+        function axCallback7(event){
+            let data = JSON.parse(event.target.responseText);
+            let name2 = document.getElementById("comp2").value;
+            document.getElementById("rpg2").innerHTML = data[name2];
+            let val1 = Number(document.getElementById("rpg1").innerHTML);
+            let val2 = Number(document.getElementById("rpg2").innerHTML);
+            if(val1 > val2){
+                document.getElementById("rpg1").style.backgroundColor = "green";
+                document.getElementById("rpg2").style.backgroundColor = "red";
+            }
+            else if (val2 > val1){
+                document.getElementById("rpg1").style.backgroundColor = "red";
+                document.getElementById("rpg2").style.backgroundColor = "green";
+            }
+            else{
+                document.getElementById("rpg1").style.backgroundColor = "yellow";
+                document.getElementById("rpg2").style.backgroundColor = "yellow";
+            }
+        }
+        function axCallback8(event){
+            let data = JSON.parse(event.target.responseText);
+            let name2 = document.getElementById("comp2").value;
+            document.getElementById("spg2").innerHTML = data[name2];
+            let val1 = Number(document.getElementById("spg1").innerHTML);
+            let val2 = Number(document.getElementById("spg2").innerHTML);
+            if(val1 > val2){
+                document.getElementById("spg1").style.backgroundColor = "green";
+                document.getElementById("spg2").style.backgroundColor = "red";
+            }
+            else if (val2 > val1){
+                document.getElementById("spg1").style.backgroundColor = "red";
+                document.getElementById("spg2").style.backgroundColor = "green";
+            }
+            else{
+                document.getElementById("spg1").style.backgroundColor = "yellow";
+                document.getElementById("spg2").style.backgroundColor = "yellow";
+            }
+        }
+        function axCallback9(event){
+            let data = JSON.parse(event.target.responseText);
+            let name2 = document.getElementById("comp2").value;
+            document.getElementById("thfg2").innerHTML = data[name2];
+            let val1 = Number(document.getElementById("thfg1").innerHTML);
+            let val2 = Number(document.getElementById("thfg2").innerHTML);
+            if(val1 > val2){
+                document.getElementById("thfg1").style.backgroundColor = "green";
+                document.getElementById("thfg2").style.backgroundColor = "red";
+            }
+            else if (val2 > val1){
+                document.getElementById("thfg1").style.backgroundColor = "red";
+                document.getElementById("thfg2").style.backgroundColor = "green";
+            }
+            else{
+                document.getElementById("thfg1").style.backgroundColor = "yellow";
+                document.getElementById("thfg2").style.backgroundColor = "yellow";
+            }
+        }
+        function axCallback10(event){
+            let data = JSON.parse(event.target.responseText);
+            let name2 = document.getElementById("comp2").value;
+            document.getElementById("tpg2").innerHTML = data[name2];
+            let val1 = Number(document.getElementById("tpg1").innerHTML);
+            let val2 = Number(document.getElementById("tpg2").innerHTML);
+            if(val1 > val2){
+                document.getElementById("tpg1").style.backgroundColor = "green";
+                document.getElementById("tpg2").style.backgroundColor = "red";
+            }
+            else if (val2 > val1){
+                document.getElementById("tpg1").style.backgroundColor = "red";
+                document.getElementById("tpg2").style.backgroundColor = "green";
+            }
+            else{
+                document.getElementById("tpg1").style.backgroundColor = "yellow";
+                document.getElementById("tpg2").style.backgroundColor = "yellow";
+            }
+        }
+        function axCallback11(event){
+            let data = JSON.parse(event.target.responseText);
+            let name2 = document.getElementById("comp2").value;
+            document.getElementById("twfg2").innerHTML = data[name2];
+            let val1 = Number(document.getElementById("twfg1").innerHTML);
+            let val2 = Number(document.getElementById("twfg2").innerHTML);
+            if(val1 > val2){
+                document.getElementById("twfg1").style.backgroundColor = "green";
+                document.getElementById("twfg2").style.backgroundColor = "red";
+            }
+            else if (val2 > val1){
+                document.getElementById("twfg1").style.backgroundColor = "red";
+                document.getElementById("twfg2").style.backgroundColor = "green";
+            }
+            else{
+                document.getElementById("twfg1").style.backgroundColor = "yellow";
+                document.getElementById("twfg2").style.backgroundColor = "yellow";
+            }
+        }
+
+        /* ------------------------------------------------------------------------------------------------------------------------- */
+        /* ------------------------------------------------------------------------------------------------------------------------- */
+        
+        function jaxCallback(event){
+            let data = JSON.parse(event.target.responseText);
+            let name1 = document.getElementById("comp1").value;
+            (data[name1]);
+            document.getElementById("apg1").innerHTML = data[name1];
+        }
+        function jaxCallback2(event){
+            let data = JSON.parse(event.target.responseText);
+            let name1 = document.getElementById("comp1").value;
+            (data[name1]);
+            document.getElementById("bpg1").innerHTML = data[name1];
+        }
+        function jaxCallback3(event){
+            let data = JSON.parse(event.target.responseText);
+            let name1 = document.getElementById("comp1").value;
+            (data[name1]);
+            document.getElementById("fg1").innerHTML = data[name1];
+        }
+        function jaxCallback4(event){
+            let data = JSON.parse(event.target.responseText);
+            let name1 = document.getElementById("comp1").value;
+            (data[name1]);
+            document.getElementById("ft1").innerHTML = data[name1];
+        }
+        function jaxCallback5(event){
+            let data = JSON.parse(event.target.responseText);
+            let name1 = document.getElementById("comp1").value;
+            (data[name1]);
+            document.getElementById("mpg1").innerHTML = data[name1];
+        }
+        function jaxCallback6(event){
+            let data = JSON.parse(event.target.responseText);
+            let name1 = document.getElementById("comp1").value;
+            (data[name1]);
+            document.getElementById("ppg1").innerHTML = data[name1];
+        }
+        function jaxCallback7(event){
+            let data = JSON.parse(event.target.responseText);
+            let name1 = document.getElementById("comp1").value;
+            (data[name1]);
+            document.getElementById("rpg1").innerHTML = data[name1];
+        }
+        function jaxCallback8(event){
+            let data = JSON.parse(event.target.responseText);
+            let name1 = document.getElementById("comp1").value;
+            (data[name1]);
+            document.getElementById("spg1").innerHTML = data[name1];
+        }
+        function jaxCallback9(event){
+            let data = JSON.parse(event.target.responseText);
+            let name1 = document.getElementById("comp1").value;
+            (data[name1]);
+            document.getElementById("thfg1").innerHTML = data[name1];
+        }
+        function jaxCallback10(event){
+            let data = JSON.parse(event.target.responseText);
+            let name1 = document.getElementById("comp1").value;
+            (data[name1]);
+            document.getElementById("tpg1").innerHTML = data[name1];
+        }
+        function jaxCallback11(event){
+            let data = JSON.parse(event.target.responseText);
+            let name1 = document.getElementById("comp1").value;
+            (data[name1]);
+            document.getElementById("twfg1").innerHTML = data[name1];
+        }
+
+        /* ------------------------------------------------------------------------------------------------------------------------- */
+        /* ------------------------------------------------------------------------------------------------------------------------- */
+        
+        function playerComp(){
+            let name1 = document.getElementById("comp1").value;
+            let year1 = document.getElementById("drp2").value;
+            let name2 = document.getElementById("comp2").value;
+            let year2 = document.getElementById("drp3").value;
+            console.log(name1, year1, name2, year2);
+            if(year1 == "2010"){
+                const xml1 = new XMLHttpRequest();
+                xml1.open('GET', '2010-2011_apg.json', true);
+                xml1.addEventListener("load", jaxCallback, false);
+                xml1.send(null);
+                const xml2 = new XMLHttpRequest();
+                xml2.open('GET', '2010-2011_bpg.json', true);
+                xml2.addEventListener("load", jaxCallback2, false);
+                xml2.send(null);
+                const xml3 = new XMLHttpRequest();
+                xml3.open('GET', '2010-2011_fg.json', true);
+                xml3.addEventListener("load", jaxCallback3, false);
+                xml3.send(null);
+                const xml4 = new XMLHttpRequest();
+                xml4.open('GET', '2010-2011_ft.json', true);
+                xml4.addEventListener("load", jaxCallback4, false);
+                xml4.send(null);
+                const xml5 = new XMLHttpRequest();
+                xml5.open('GET', '2010-2011_mpg.json', true);
+                xml5.addEventListener("load", jaxCallback5, false);
+                xml5.send(null);
+                const xml6 = new XMLHttpRequest();
+                xml6.open('GET', '2010-2011_ppg.json', true);
+                xml6.addEventListener("load", jaxCallback6, false);
+                xml6.send(null);
+                const xml7 = new XMLHttpRequest();
+                xml7.open('GET', '2010-2011_rpg.json', true);
+                xml7.addEventListener("load", jaxCallback7, false);
+                xml7.send(null);
+                const xml8 = new XMLHttpRequest();
+                xml8.open('GET', '2010-2011_spg.json', true);
+                xml8.addEventListener("load", jaxCallback8, false);
+                xml8.send(null);
+                const xml9 = new XMLHttpRequest();
+                xml9.open('GET', '2010-2011_thfg.json', true);
+                xml9.addEventListener("load", jaxCallback9, false);
+                xml9.send(null);
+                const xml10 = new XMLHttpRequest();
+                xml10.open('GET', '2010-2011_tpg.json', true);
+                xml10.addEventListener("load", jaxCallback10, false);
+                xml10.send(null);
+                const xml11 = new XMLHttpRequest();
+                xml11.open('GET', '2010-2011_twfg.json', true);
+                xml11.addEventListener("load", jaxCallback11, false);
+                xml11.send(null);
+            }
+            else if(year1 == "2011"){
+                const xml1b = new XMLHttpRequest();
+                xml1b.open('GET', '2011-2012_apg.json', true);
+                xml1b.addEventListener("load", jaxCallback, false);
+                xml1b.send(null);
+                const xml2b = new XMLHttpRequest();
+                xml2b.open('GET', '2011-2012_bpg.json', true);
+                xml2b.addEventListener("load", jaxCallback2, false);
+                xml2b.send(null);
+                const xml3b = new XMLHttpRequest();
+                xml3b.open('GET', '2011-2012_fg.json', true);
+                xml3b.addEventListener("load", jaxCallback3, false);
+                xml3b.send(null);
+                const xml4b = new XMLHttpRequest();
+                xml4b.open('GET', '2011-2012_ft.json', true);
+                xml4b.addEventListener("load", jaxCallback4, false);
+                xml4b.send(null);
+                const xml5b = new XMLHttpRequest();
+                xml5b.open('GET', '2011-2012_mpg.json', true);
+                xml5b.addEventListener("load", jaxCallback5, false);
+                xml5b.send(null);
+                const xml6b = new XMLHttpRequest();
+                xml6b.open('GET', '2011-2012_ppg.json', true);
+                xml6b.addEventListener("load", jaxCallback6, false);
+                xml6b.send(null);
+                const xml7b = new XMLHttpRequest();
+                xml7b.open('GET', '2011-2012_rpg.json', true);
+                xml7b.addEventListener("load", jaxCallback7, false);
+                xml7b.send(null);
+                const xml8b = new XMLHttpRequest();
+                xml8b.open('GET', '2011-2012_spg.json', true);
+                xml8b.addEventListener("load", jaxCallback8, false);
+                xml8b.send(null);
+                const xml9b = new XMLHttpRequest();
+                xml9b.open('GET', '2011-2012_thfg.json', true);
+                xml9b.addEventListener("load", jaxCallback9, false);
+                xml9b.send(null);
+                const xml10b = new XMLHttpRequest();
+                xml10b.open('GET', '2011-2012_tpg.json', true);
+                xml10b.addEventListener("load", jaxCallback10, false);
+                xml10b.send(null);
+                const xml11b = new XMLHttpRequest();
+                xml11b.open('GET', '2011-2012_twfg.json', true);
+                xml11b.addEventListener("load", jaxCallback11, false);
+                xml11b.send(null);
+            }
+            else if(year1== "2012"){
+                const xml1c = new XMLHttpRequest();
+                xml1c.open('GET', '2012-2013_apg.json', true);
+                xml1c.addEventListener("load", jaxCallback, false);
+                xml1c.send(null);
+                const xml2c = new XMLHttpRequest();
+                xml2c.open('GET', '2012-2013_bpg.json', true);
+                xml2c.addEventListener("load", jaxCallback2, false);
+                xml2c.send(null);
+                const xml3c = new XMLHttpRequest();
+                xml3c.open('GET', '2012-2013_fg.json', true);
+                xml3c.addEventListener("load", jaxCallback3, false);
+                xml3c.send(null);
+                const xml4c = new XMLHttpRequest();
+                xml4c.open('GET', '2012-2013_ft.json', true);
+                xml4c.addEventListener("load", jaxCallback4, false);
+                xml4c.send(null);
+                const xml5c = new XMLHttpRequest();
+                xml5c.open('GET', '2012-2013_mpg.json', true);
+                xml5c.addEventListener("load", jaxCallback5, false);
+                xml5c.send(null);
+                const xml6c = new XMLHttpRequest();
+                xml6c.open('GET', '2012-2013_ppg.json', true);
+                xml6c.addEventListener("load", jaxCallback6, false);
+                xml6c.send(null);
+                const xml7c = new XMLHttpRequest();
+                xml7c.open('GET', '2012-2013_rpg.json', true);
+                xml7c.addEventListener("load", jaxCallback7, false);
+                xml7c.send(null);
+                const xml8c = new XMLHttpRequest();
+                xml8c.open('GET', '2012-2013_spg.json', true);
+                xml8c.addEventListener("load", jaxCallback8, false);
+                xml8c.send(null);
+                const xml9c = new XMLHttpRequest();
+                xml9c.open('GET', '2012-2013_thfg.json', true);
+                xml9c.addEventListener("load", jaxCallback9, false);
+                xml9c.send(null);
+                const xml10c = new XMLHttpRequest();
+                xml10c.open('GET', '2012-2013_tpg.json', true);
+                xml10c.addEventListener("load", jaxCallback10, false);
+                xml10c.send(null);
+                const xml11c = new XMLHttpRequest();
+                xml11c.open('GET', '2012-2013_twfg.json', true);
+                xml11c.addEventListener("load", jaxCallback11, false);
+                xml11c.send(null);
+            }
+            else if(year1== "2013"){
+                const xml1d = new XMLHttpRequest();
+                xml1d.open('GET', '2013-2014_apg.json', true);
+                xml1d.addEventListener("load", jaxCallback, false);
+                xml1d.send(null);
+                const xml2d = new XMLHttpRequest();
+                xml2d.open('GET', '2013-2014_bpg.json', true);
+                xml2d.addEventListener("load", jaxCallback2, false);
+                xml2d.send(null);
+                const xml3d = new XMLHttpRequest();
+                xml3d.open('GET', '2013-2014_fg.json', true);
+                xml3d.addEventListener("load", jaxCallback3, false);
+                xml3d.send(null);
+                const xml4d = new XMLHttpRequest();
+                xml4d.open('GET', '2013-2014_ft.json', true);
+                xml4d.addEventListener("load", jaxCallback4, false);
+                xml4d.send(null);
+                const xml5d = new XMLHttpRequest();
+                xml5d.open('GET', '2013-2014_mpg.json', true);
+                xml5d.addEventListener("load", jaxCallback5, false);
+                xml5d.send(null);
+                const xml6d = new XMLHttpRequest();
+                xml6d.open('GET', '2013-2014_ppg.json', true);
+                xml6d.addEventListener("load", jaxCallback6, false);
+                xml6d.send(null);
+                const xml7d = new XMLHttpRequest();
+                xml7d.open('GET', '2013-2014_rpg.json', true);
+                xml7d.addEventListener("load", jaxCallback7, false);
+                xml7d.send(null);
+                const xml8d = new XMLHttpRequest();
+                xml8d.open('GET', '2013-2014_spg.json', true);
+                xml8d.addEventListener("load", jaxCallback8, false);
+                xml8d.send(null);
+                const xml9d = new XMLHttpRequest();
+                xml9d.open('GET', '2013-2014_thfg.json', true);
+                xml9d.addEventListener("load", jaxCallback9, false);
+                xml9d.send(null);
+                const xml10d = new XMLHttpRequest();
+                xml10d.open('GET', '2013-2014_tpg.json', true);
+                xml10d.addEventListener("load", jaxCallback10, false);
+                xml10d.send(null);
+                const xml11d = new XMLHttpRequest();
+                xml11d.open('GET', '2013-2014_twfg.json', true);
+                xml11d.addEventListener("load", jaxCallback11, false);
+                xml11d.send(null);
+            }
+            else if(year1== "2014"){
+                const xml1e = new XMLHttpRequest();
+                xml1e.open('GET', '2014-2015_apg.json', true);
+                xml1e.addEventListener("load", jaxCallback, false);
+                xml1e.send(null);
+                const xml2e = new XMLHttpRequest();
+                xml2e.open('GET', '2014-2015_bpg.json', true);
+                xml2e.addEventListener("load", jaxCallback2, false);
+                xml2e.send(null);
+                const xml3e = new XMLHttpRequest();
+                xml3e.open('GET', '2014-2015_fg.json', true);
+                xml3e.addEventListener("load", jaxCallback3, false);
+                xml3e.send(null);
+                const xml4e = new XMLHttpRequest();
+                xml4e.open('GET', '2014-2015_ft.json', true);
+                xml4e.addEventListener("load", jaxCallback4, false);
+                xml4e.send(null);
+                const xml5e = new XMLHttpRequest();
+                xml5e.open('GET', '2014-2015_mpg.json', true);
+                xml5e.addEventListener("load", jaxCallback5, false);
+                xml5e.send(null);
+                const xml6e = new XMLHttpRequest();
+                xml6e.open('GET', '2014-2015_ppg.json', true);
+                xml6e.addEventListener("load", jaxCallback6, false);
+                xml6e.send(null);
+                const xml7e = new XMLHttpRequest();
+                xml7e.open('GET', '2014-2015_rpg.json', true);
+                xml7e.addEventListener("load", jaxCallback7, false);
+                xml7e.send(null);
+                const xml8e = new XMLHttpRequest();
+                xml8e.open('GET', '2014-2015_spg.json', true);
+                xml8e.addEventListener("load", jaxCallback8, false);
+                xml8e.send(null);
+                const xml9e = new XMLHttpRequest();
+                xml9e.open('GET', '2014-2015_thfg.json', true);
+                xml9e.addEventListener("load", jaxCallback9, false);
+                xml9e.send(null);
+                const xml10e = new XMLHttpRequest();
+                xml10e.open('GET', '2014-2015_tpg.json', true);
+                xml10e.addEventListener("load", jaxCallback10, false);
+                xml10e.send(null);
+                const xml11e = new XMLHttpRequest();
+                xml11e.open('GET', '2014-2015_twfg.json', true);
+                xml11e.addEventListener("load", jaxCallback11, false);
+                xml11e.send(null);
+            }
+            else if(year1== "2015"){
+                const xml1f = new XMLHttpRequest();
+                xml1f.open('GET', '2015-2016_apg.json', true);
+                xml1f.addEventListener("load", jaxCallback, false);
+                xml1f.send(null);
+                const xml2f = new XMLHttpRequest();
+                xml2f.open('GET', '2015-2016_bpg.json', true);
+                xml2f.addEventListener("load", jaxCallback2, false);
+                xml2f.send(null);
+                const xml3f = new XMLHttpRequest();
+                xml3f.open('GET', '2015-2016_fg.json', true);
+                xml3f.addEventListener("load", jaxCallback3, false);
+                xml3f.send(null);
+                const xml4f = new XMLHttpRequest();
+                xml4f.open('GET', '2015-2016_ft.json', true);
+                xml4f.addEventListener("load", jaxCallback4, false);
+                xml4f.send(null);
+                const xml5f = new XMLHttpRequest();
+                xml5f.open('GET', '2015-2016_mpg.json', true);
+                xml5f.addEventListener("load", jaxCallback5, false);
+                xml5f.send(null);
+                const xml6f = new XMLHttpRequest();
+                xml6f.open('GET', '2015-2016_ppg.json', true);
+                xml6f.addEventListener("load", jaxCallback6, false);
+                xml6f.send(null);
+                const xml7f = new XMLHttpRequest();
+                xml7f.open('GET', '2015-2016_rpg.json', true);
+                xml7f.addEventListener("load", jaxCallback7, false);
+                xml7f.send(null);
+                const xml8f = new XMLHttpRequest();
+                xml8f.open('GET', '2015-2016_spg.json', true);
+                xml8f.addEventListener("load", jaxCallback8, false);
+                xml8f.send(null);
+                const xml9f = new XMLHttpRequest();
+                xml9f.open('GET', '2015-2016_thfg.json', true);
+                xml9f.addEventListener("load", jaxCallback9, false);
+                xml9f.send(null);
+                const xml10f = new XMLHttpRequest();
+                xml10f.open('GET', '2015-2016_tpg.json', true);
+                xml10f.addEventListener("load", jaxCallback10, false);
+                xml10f.send(null);
+                const xml11f = new XMLHttpRequest();
+                xml11f.open('GET', '2015-2016_twfg.json', true);
+                xml11f.addEventListener("load", jaxCallback11, false);
+                xml11f.send(null);
+            }
+            else if(year1== "2016"){
+                const xml1g = new XMLHttpRequest();
+                xml1g.open('GET', '2016-2017_apg.json', true);
+                xml1g.addEventListener("load", jaxCallback, false);
+                xml1g.send(null);
+                const xml2g = new XMLHttpRequest();
+                xml2g.open('GET', '2016-2017_bpg.json', true);
+                xml2g.addEventListener("load", jaxCallback2, false);
+                xml2g.send(null);
+                const xml3g = new XMLHttpRequest();
+                xml3g.open('GET', '2016-2017_fg.json', true);
+                xml3g.addEventListener("load", jaxCallback3, false);
+                xml3g.send(null);
+                const xml4g = new XMLHttpRequest();
+                xml4g.open('GET', '2016-2017_ft.json', true);
+                xml4g.addEventListener("load", jaxCallback4, false);
+                xml4g.send(null);
+                const xml5g = new XMLHttpRequest();
+                xml5g.open('GET', '2016-2017_mpg.json', true);
+                xml5g.addEventListener("load", jaxCallback5, false);
+                xml5g.send(null);
+                const xml6g = new XMLHttpRequest();
+                xml6g.open('GET', '2016-2017_ppg.json', true);
+                xml6g.addEventListener("load", jaxCallback6, false);
+                xml6g.send(null);
+                const xml7g = new XMLHttpRequest();
+                xml7g.open('GET', '2016-2017_rpg.json', true);
+                xml7g.addEventListener("load", jaxCallback7, false);
+                xml7g.send(null);
+                const xml8g = new XMLHttpRequest();
+                xml8g.open('GET', '2016-2017_spg.json', true);
+                xml8g.addEventListener("load", jaxCallback8, false);
+                xml8g.send(null);
+                const xml9g = new XMLHttpRequest();
+                xml9g.open('GET', '2016-2017_thfg.json', true);
+                xml9g.addEventListener("load", jaxCallback9, false);
+                xml9g.send(null);
+                const xml10g = new XMLHttpRequest();
+                xml10g.open('GET', '2016-2017_tpg.json', true);
+                xml10g.addEventListener("load", jaxCallback10, false);
+                xml10g.send(null);
+                const xml11g = new XMLHttpRequest();
+                xml11g.open('GET', '2016-2017_twfg.json', true);
+                xml11g.addEventListener("load", jaxCallback11, false);
+                xml11g.send(null);
+            }
+            else if(year1== "2017"){
+                const xml1h = new XMLHttpRequest();
+                xml1h.open('GET', '2017-2018_apg.json', true);
+                xml1h.addEventListener("load", jaxCallback, false);
+                xml1h.send(null);
+                const xml2h = new XMLHttpRequest();
+                xml2h.open('GET', '2017-2018_bpg.json', true);
+                xml2h.addEventListener("load", jaxCallback2, false);
+                xml2h.send(null);
+                const xml3h = new XMLHttpRequest();
+                xml3h.open('GET', '2017-2018_fg.json', true);
+                xml3h.addEventListener("load", jaxCallback3, false);
+                xml3h.send(null);
+                const xml4h = new XMLHttpRequest();
+                xml4h.open('GET', '2017-2018_ft.json', true);
+                xml4h.addEventListener("load", jaxCallback4, false);
+                xml4h.send(null);
+                const xml5h = new XMLHttpRequest();
+                xml5h.open('GET', '2017-2018_mpg.json', true);
+                xml5h.addEventListener("load", jaxCallback5, false);
+                xml5h.send(null);
+                const xml6h = new XMLHttpRequest();
+                xml6h.open('GET', '2017-2018_ppg.json', true);
+                xml6h.addEventListener("load", jaxCallback6, false);
+                xml6h.send(null);
+                const xml7h = new XMLHttpRequest();
+                xml7h.open('GET', '2017-2018_rpg.json', true);
+                xml7h.addEventListener("load", jaxCallback7, false);
+                xml7h.send(null);
+                const xml8h = new XMLHttpRequest();
+                xml8h.open('GET', '2017-2018_spg.json', true);
+                xml8h.addEventListener("load", jaxCallback8, false);
+                xml8h.send(null);
+                const xml9h = new XMLHttpRequest();
+                xml9h.open('GET', '2017-2018_thfg.json', true);
+                xml9h.addEventListener("load", jaxCallback9, false);
+                xml9h.send(null);
+                const xml10h = new XMLHttpRequest();
+                xml10h.open('GET', '2017-2018_tpg.json', true);
+                xml10h.addEventListener("load", jaxCallback10, false);
+                xml10h.send(null);
+                const xml11h = new XMLHttpRequest();
+                xml11h.open('GET', '2017-2018_twfg.json', true);
+                xml11h.addEventListener("load", jaxCallback11, false);
+                xml11h.send(null);
+            }
+            else if(year1== "2018"){
+                const xml1i = new XMLHttpRequest();
+                xml1i.open('GET', '2018-2019_apg.json', true);
+                xml1i.addEventListener("load", jaxCallback, false);
+                xml1i.send(null);
+                const xml2i = new XMLHttpRequest();
+                xml2i.open('GET', '2018-2019_bpg.json', true);
+                xml2i.addEventListener("load", jaxCallback2, false);
+                xml2i.send(null);
+                const xml3i = new XMLHttpRequest();
+                xml3i.open('GET', '2018-2019_fg.json', true);
+                xml3i.addEventListener("load", jaxCallback3, false);
+                xml3i.send(null);
+                const xml4i = new XMLHttpRequest();
+                xml4i.open('GET', '2018-2019_ft.json', true);
+                xml4i.addEventListener("load", jaxCallback4, false);
+                xml4i.send(null);
+                const xml5i = new XMLHttpRequest();
+                xml5i.open('GET', '2018-2019_mpg.json', true);
+                xml5i.addEventListener("load", jaxCallback5, false);
+                xml5i.send(null);
+                const xml6i = new XMLHttpRequest();
+                xml6i.open('GET', '2018-2019_ppg.json', true);
+                xml6i.addEventListener("load", jaxCallback6, false);
+                xml6i.send(null);
+                const xml7i = new XMLHttpRequest();
+                xml7i.open('GET', '2018-2019_rpg.json', true);
+                xml7i.addEventListener("load", jaxCallback7, false);
+                xml7i.send(null);
+                const xml8i = new XMLHttpRequest();
+                xml8i.open('GET', '2018-2019_spg.json', true);
+                xml8i.addEventListener("load", jaxCallback8, false);
+                xml8i.send(null);
+                const xml9i = new XMLHttpRequest();
+                xml9i.open('GET', '2018-2019_thfg.json', true);
+                xml9i.addEventListener("load", jaxCallback9, false);
+                xml9i.send(null);
+                const xml10i = new XMLHttpRequest();
+                xml10i.open('GET', '2018-2019_tpg.json', true);
+                xml10i.addEventListener("load", jaxCallback10, false);
+                xml10i.send(null);
+                const xml11i = new XMLHttpRequest();
+                xml11i.open('GET', '2018-2019_twfg.json', true);
+                xml11i.addEventListener("load", jaxCallback11, false);
+                xml11i.send(null);
+            }
+            else{
+                const xml1j = new XMLHttpRequest();
+                xml1j.open('GET', '2019-2020_apg.json', true);
+                xml1j.addEventListener("load", jaxCallback, false);
+                xml1j.send(null);
+                const xml2j = new XMLHttpRequest();
+                xml2j.open('GET', '2019-2020_bpg.json', true);
+                xml2j.addEventListener("load", jaxCallback2, false);
+                xml2j.send(null);
+                const xml3j = new XMLHttpRequest();
+                xml3j.open('GET', '2019-2020_fg.json', true);
+                xml3j.addEventListener("load", jaxCallback3, false);
+                xml3j.send(null);
+                const xml4j = new XMLHttpRequest();
+                xml4j.open('GET', '2019-2020_ft.json', true);
+                xml4j.addEventListener("load", jaxCallback4, false);
+                xml4j.send(null);
+                const xml5j = new XMLHttpRequest();
+                xml5j.open('GET', '2019-2020_mpg.json', true);
+                xml5j.addEventListener("load", jaxCallback5, false);
+                xml5j.send(null);
+                const xml6j = new XMLHttpRequest();
+                xml6j.open('GET', '2019-2020_ppg.json', true);
+                xml6j.addEventListener("load", jaxCallback6, false);
+                xml6j.send(null);
+                const xml7j = new XMLHttpRequest();
+                xml7j.open('GET', '2019-2020_rpg.json', true);
+                xml7j.addEventListener("load", jaxCallback7, false);
+                xml7j.send(null);
+                const xml8j = new XMLHttpRequest();
+                xml8j.open('GET', '2019-2020_spg.json', true);
+                xml8j.addEventListener("load", jaxCallback8, false);
+                xml8j.send(null);
+                const xml9j = new XMLHttpRequest();
+                xml9j.open('GET', '2019-2020_thfg.json', true);
+                xml9j.addEventListener("load", jaxCallback9, false);
+                xml9j.send(null);
+                const xml10j = new XMLHttpRequest();
+                xml10j.open('GET', '2019-2020_tpg.json', true);
+                xml10j.addEventListener("load", jaxCallback10, false);
+                xml10j.send(null);
+                const xml11j = new XMLHttpRequest();
+                xml11j.open('GET', '2019-2020_twfg.json', true);
+                xml11j.addEventListener("load", jaxCallback11, false);
+                xml11j.send(null);
+            }
+
+        /* ------------------------------------------------------------------------------------------------------------------------- */
+        /* ------------------------------------------------------------------------------------------------------------------------- */
+
+            if(year2 == "2010"){
+                const axml1 = new XMLHttpRequest();
+                axml1.open('GET', '2010-2011_apg.json', true);
+                axml1.addEventListener("load", axCallback, false);
+                axml1.send(null);
+                const axml2 = new XMLHttpRequest();
+                axml2.open('GET', '2010-2011_bpg.json', true);
+                axml2.addEventListener("load", axCallback2, false);
+                axml2.send(null);
+                const axml3 = new XMLHttpRequest();
+                axml3.open('GET', '2010-2011_fg.json', true);
+                axml3.addEventListener("load", axCallback3, false);
+                axml3.send(null);
+                const axml4 = new XMLHttpRequest();
+                axml4.open('GET', '2010-2011_ft.json', true);
+                axml4.addEventListener("load", axCallback4, false);
+                axml4.send(null);
+                const axml5 = new XMLHttpRequest();
+                axml5.open('GET', '2010-2011_mpg.json', true);
+                axml5.addEventListener("load", axCallback5, false);
+                axml5.send(null);
+                const axml6 = new XMLHttpRequest();
+                axml6.open('GET', '2010-2011_ppg.json', true);
+                axml6.addEventListener("load", axCallback6, false);
+                axml6.send(null);
+                const axml7 = new XMLHttpRequest();
+                axml7.open('GET', '2010-2011_rpg.json', true);
+                axml7.addEventListener("load", axCallback7, false);
+                axml7.send(null);
+                const axml8 = new XMLHttpRequest();
+                axml8.open('GET', '2010-2011_spg.json', true);
+                axml8.addEventListener("load", axCallback8, false);
+                axml8.send(null);
+                const axml9 = new XMLHttpRequest();
+                axml9.open('GET', '2010-2011_thfg.json', true);
+                axml9.addEventListener("load", axCallback9, false);
+                axml9.send(null);
+                const axml10 = new XMLHttpRequest();
+                axml10.open('GET', '2010-2011_tpg.json', true);
+                axml10.addEventListener("load", axCallback10, false);
+                axml10.send(null);
+                const axml11 = new XMLHttpRequest();
+                axml11.open('GET', '2010-2011_twfg.json', true);
+                axml11.addEventListener("load", axCallback11, false);
+                axml11.send(null);
+            }
+            else if(year2 == "2011"){
+                const axml1b = new XMLHttpRequest();
+                axml1b.open('GET', '2011-2012_apg.json', true);
+                axml1b.addEventListener("load", axCallback, false);
+                axml1b.send(null);
+                const xml2b = new XMLHttpRequest();
+                axml2b.open('GET', '2011-2012_bpg.json', true);
+                aaxml2b.addEventListener("load", axCallback2, false);
+                axml2b.send(null);
+                const axml3b = new XMLHttpRequest();
+                axml3b.open('GET', '2011-2012_fg.json', true);
+                axml3b.addEventListener("load", axCallback3, false);
+                axml3b.send(null);
+                const axml4b = new XMLHttpRequest();
+                axml4b.open('GET', '2011-2012_ft.json', true);
+                axml4b.addEventListener("load", axCallback4, false);
+                axml4b.send(null);
+                const axml5b = new XMLHttpRequest();
+                axml5b.open('GET', '2011-2012_mpg.json', true);
+                axml5b.addEventListener("load", axCallback5, false);
+                axml5b.send(null);
+                const axml6b = new XMLHttpRequest();
+                axml6b.open('GET', '2011-2012_ppg.json', true);
+                axml6b.addEventListener("load", axCallback6, false);
+                axml6b.send(null);
+                const axml7b = new XMLHttpRequest();
+                axml7b.open('GET', '2011-2012_rpg.json', true);
+                axml7b.addEventListener("load", axCallback7, false);
+                axml7b.send(null);
+                const axml8b = new XMLHttpRequest();
+                axml8b.open('GET', '2011-2012_spg.json', true);
+                axml8b.addEventListener("load", axCallback8, false);
+                axml8b.send(null);
+                const axml9b = new XMLHttpRequest();
+                axml9b.open('GET', '2011-2012_thfg.json', true);
+                axml9b.addEventListener("load", axCallback9, false);
+                axml9b.send(null);
+                const axml10b = new XMLHttpRequest();
+                axml10b.open('GET', '2011-2012_tpg.json', true);
+                axml10b.addEventListener("load", axCallback10, false);
+                axml10b.send(null);
+                const axml11b = new XMLHttpRequest();
+                axml11b.open('GET', '2011-2012_twfg.json', true);
+                axml11b.addEventListener("load", axCallback11, false);
+                axml11b.send(null);
+            }
+            else if(year2== "2012"){
+                const axml1c = new XMLHttpRequest();
+                axml1c.open('GET', '2012-2013_apg.json', true);
+                axml1c.addEventListener("load", axCallback, false);
+                axml1c.send(null);
+                const axml2c = new XMLHttpRequest();
+                axml2c.open('GET', '2012-2013_bpg.json', true);
+                axml2c.addEventListener("load", axCallback2, false);
+                axml2c.send(null);
+                const axml3c = new XMLHttpRequest();
+                axml3c.open('GET', '2012-2013_fg.json', true);
+                axml3c.addEventListener("load", axCallback3, false);
+                axml3c.send(null);
+                const axml4c = new XMLHttpRequest();
+                axml4c.open('GET', '2012-2013_ft.json', true);
+                axml4c.addEventListener("load", axCallback4, false);
+                axml4c.send(null);
+                const axml5c = new XMLHttpRequest();
+                axml5c.open('GET', '2012-2013_mpg.json', true);
+                axml5c.addEventListener("load", axCallback5, false);
+                axml5c.send(null);
+                const axml6c = new XMLHttpRequest();
+                axml6c.open('GET', '2012-2013_ppg.json', true);
+                axml6c.addEventListener("load", axCallback6, false);
+                axml6c.send(null);
+                const axml7c = new XMLHttpRequest();
+                axml7c.open('GET', '2012-2013_rpg.json', true);
+                axml7c.addEventListener("load", axCallback7, false);
+                axml7c.send(null);
+                const axml8c = new XMLHttpRequest();
+                axml8c.open('GET', '2012-2013_spg.json', true);
+                axml8c.addEventListener("load", axCallback8, false);
+                axml8c.send(null);
+                const axml9c = new XMLHttpRequest();
+                axml9c.open('GET', '2012-2013_thfg.json', true);
+                axml9c.addEventListener("load", axCallback9, false);
+                axml9c.send(null);
+                const axml10c = new XMLHttpRequest();
+                axml10c.open('GET', '2012-2013_tpg.json', true);
+                axml10c.addEventListener("load", axCallback10, false);
+                axml10c.send(null);
+                const axml11c = new XMLHttpRequest();
+                axml11c.open('GET', '2012-2013_twfg.json', true);
+                axml11c.addEventListener("load", axCallback11, false);
+                axml11c.send(null);
+            }
+            else if(year2== "2013"){
+                const axml1d = new XMLHttpRequest();
+                axml1d.open('GET', '2013-2014_apg.json', true);
+                axml1d.addEventListener("load", axCallback, false);
+                axml1d.send(null);
+                const axml2d = new XMLHttpRequest();
+                axml2d.open('GET', '2013-2014_bpg.json', true);
+                axml2d.addEventListener("load", axCallback2, false);
+                axml2d.send(null);
+                const axml3d = new XMLHttpRequest();
+                axml3d.open('GET', '2013-2014_fg.json', true);
+                axml3d.addEventListener("load", axCallback3, false);
+                axml3d.send(null);
+                const axml4d = new XMLHttpRequest();
+                axml4d.open('GET', '2013-2014_ft.json', true);
+                axml4d.addEventListener("load", axCallback4, false);
+                axml4d.send(null);
+                const axml5d = new XMLHttpRequest();
+                axml5d.open('GET', '2013-2014_mpg.json', true);
+                axml5d.addEventListener("load", axCallback5, false);
+                axml5d.send(null);
+                const axml6d = new XMLHttpRequest();
+                axml6d.open('GET', '2013-2014_ppg.json', true);
+                axml6d.addEventListener("load", axCallback6, false);
+                axml6d.send(null);
+                const axml7d = new XMLHttpRequest();
+                axml7d.open('GET', '2013-2014_rpg.json', true);
+                axml7d.addEventListener("load", axCallback7, false);
+                axml7d.send(null);
+                const axml8d = new XMLHttpRequest();
+                axml8d.open('GET', '2013-2014_spg.json', true);
+                axml8d.addEventListener("load", axCallback8, false);
+                axml8d.send(null);
+                const axml9d = new XMLHttpRequest();
+                axml9d.open('GET', '2013-2014_thfg.json', true);
+                axml9d.addEventListener("load", axCallback9, false);
+                axml9d.send(null);
+                const axml10d = new XMLHttpRequest();
+                axml10d.open('GET', '2013-2014_tpg.json', true);
+                axml10d.addEventListener("load", axCallback10, false);
+                axml10d.send(null);
+                const axml11d = new XMLHttpRequest();
+                axml11d.open('GET', '2013-2014_twfg.json', true);
+                axml11d.addEventListener("load", axCallback11, false);
+                axml11d.send(null);
+            }
+            else if(year2== "2014"){
+                const axml1e = new XMLHttpRequest();
+                axml1e.open('GET', '2014-2015_apg.json', true);
+                axml1e.addEventListener("load", axCallback, false);
+                axml1e.send(null);
+                const axml2e = new XMLHttpRequest();
+                axml2e.open('GET', '2014-2015_bpg.json', true);
+                axml2e.addEventListener("load", axCallback2, false);
+                axml2e.send(null);
+                const axml3e = new XMLHttpRequest();
+                axml3e.open('GET', '2014-2015_fg.json', true);
+                axml3e.addEventListener("load", axCallback3, false);
+                axml3e.send(null);
+                const axml4e = new XMLHttpRequest();
+                axml4e.open('GET', '2014-2015_ft.json', true);
+                axml4e.addEventListener("load", axCallback4, false);
+                axml4e.send(null);
+                const axml5e = new XMLHttpRequest();
+                axml5e.open('GET', '2014-2015_mpg.json', true);
+                axml5e.addEventListener("load", axCallback5, false);
+                axml5e.send(null);
+                const axml6e = new XMLHttpRequest();
+                axml6e.open('GET', '2014-2015_ppg.json', true);
+                axml6e.addEventListener("load", axCallback6, false);
+                axml6e.send(null);
+                const axml7e = new XMLHttpRequest();
+                axml7e.open('GET', '2014-2015_rpg.json', true);
+                axml7e.addEventListener("load", axCallback7, false);
+                axml7e.send(null);
+                const axml8e = new XMLHttpRequest();
+                axml8e.open('GET', '2014-2015_spg.json', true);
+                axml8e.addEventListener("load", axCallback8, false);
+                axml8e.send(null);
+                const axml9e = new XMLHttpRequest();
+                axml9e.open('GET', '2014-2015_thfg.json', true);
+                axml9e.addEventListener("load", axCallback9, false);
+                axml9e.send(null);
+                const axml10e = new XMLHttpRequest();
+                axml10e.open('GET', '2014-2015_tpg.json', true);
+                axml10e.addEventListener("load", axCallback10, false);
+                axml10e.send(null);
+                const axml11e = new XMLHttpRequest();
+                axml11e.open('GET', '2014-2015_twfg.json', true);
+                axml11e.addEventListener("load", axCallback11, false);
+                axml11e.send(null);
+            }
+            else if(year2== "2015"){
+                const axml1f = new XMLHttpRequest();
+                axml1f.open('GET', '2015-2016_apg.json', true);
+                axml1f.addEventListener("load", axCallback, false);
+                axml1f.send(null);
+                const axml2f = new XMLHttpRequest();
+                axml2f.open('GET', '2015-2016_bpg.json', true);
+                axml2f.addEventListener("load", axCallback2, false);
+                axml2f.send(null);
+                const axml3f = new XMLHttpRequest();
+                axml3f.open('GET', '2015-2016_fg.json', true);
+                axml3f.addEventListener("load", axCallback3, false);
+                axml3f.send(null);
+                const axml4f = new XMLHttpRequest();
+                axml4f.open('GET', '2015-2016_ft.json', true);
+                axml4f.addEventListener("load", axCallback4, false);
+                axml4f.send(null);
+                const axml5f = new XMLHttpRequest();
+                axml5f.open('GET', '2015-2016_mpg.json', true);
+                axml5f.addEventListener("load", axCallback5, false);
+                axml5f.send(null);
+                const axml6f = new XMLHttpRequest();
+                axml6f.open('GET', '2015-2016_ppg.json', true);
+                axml6f.addEventListener("load", axCallback6, false);
+                axml6f.send(null);
+                const axml7f = new XMLHttpRequest();
+                axml7f.open('GET', '2015-2016_rpg.json', true);
+                axml7f.addEventListener("load", axCallback7, false);
+                axml7f.send(null);
+                const axml8f = new XMLHttpRequest();
+                axml8f.open('GET', '2015-2016_spg.json', true);
+                axml8f.addEventListener("load", axCallback8, false);
+                axml8f.send(null);
+                const axml9f = new XMLHttpRequest();
+                axml9f.open('GET', '2015-2016_thfg.json', true);
+                axml9f.addEventListener("load", axCallback9, false);
+                axml9f.send(null);
+                const axml10f = new XMLHttpRequest();
+                axml10f.open('GET', '2015-2016_tpg.json', true);
+                axml10f.addEventListener("load", axCallback10, false);
+                axml10f.send(null);
+                const axml11f = new XMLHttpRequest();
+                axml11f.open('GET', '2015-2016_twfg.json', true);
+                axml11f.addEventListener("load", axCallback11, false);
+                axml11f.send(null);
+            }
+            else if(year2== "2016"){
+                const axml1g = new XMLHttpRequest();
+                axml1g.open('GET', '2016-2017_apg.json', true);
+                axml1g.addEventListener("load", axCallback, false);
+                axml1g.send(null);
+                const axml2g = new XMLHttpRequest();
+                axml2g.open('GET', '2016-2017_bpg.json', true);
+                axml2g.addEventListener("load", axCallback2, false);
+                axml2g.send(null);
+                const axml3g = new XMLHttpRequest();
+                axml3g.open('GET', '2016-2017_fg.json', true);
+                axml3g.addEventListener("load", axCallback3, false);
+                axml3g.send(null);
+                const axml4g = new XMLHttpRequest();
+                axml4g.open('GET', '2016-2017_ft.json', true);
+                axml4g.addEventListener("load", axCallback4, false);
+                axml4g.send(null);
+                const axml5g = new XMLHttpRequest();
+                axml5g.open('GET', '2016-2017_mpg.json', true);
+                axml5g.addEventListener("load", axCallback5, false);
+                axml5g.send(null);
+                const axml6g = new XMLHttpRequest();
+                axml6g.open('GET', '2016-2017_ppg.json', true);
+                axml6g.addEventListener("load", axCallback6, false);
+                axml6g.send(null);
+                const axml7g = new XMLHttpRequest();
+                axml7g.open('GET', '2016-2017_rpg.json', true);
+                axml7g.addEventListener("load", axCallback7, false);
+                axml7g.send(null);
+                const axml8g = new XMLHttpRequest();
+                axml8g.open('GET', '2016-2017_spg.json', true);
+                axml8g.addEventListener("load", axCallback8, false);
+                axml8g.send(null);
+                const axml9g = new XMLHttpRequest();
+                axml9g.open('GET', '2016-2017_thfg.json', true);
+                axml9g.addEventListener("load", axCallback9, false);
+                axml9g.send(null);
+                const axml10g = new XMLHttpRequest();
+                axml10g.open('GET', '2016-2017_tpg.json', true);
+                axml10g.addEventListener("load", axCallback10, false);
+                axml10g.send(null);
+                const axml11g = new XMLHttpRequest();
+                axml11g.open('GET', '2016-2017_twfg.json', true);
+                axml11g.addEventListener("load", axCallback11, false);
+                axml11g.send(null);
+            }
+            else if(year2== "2017"){
+                const axml1h = new XMLHttpRequest();
+                axml1h.open('GET', '2017-2018_apg.json', true);
+                axml1h.addEventListener("load", axCallback, false);
+                axml1h.send(null);
+                const axml2h = new XMLHttpRequest();
+                axml2h.open('GET', '2017-2018_bpg.json', true);
+                axml2h.addEventListener("load", axCallback2, false);
+                axml2h.send(null);
+                const axml3h = new XMLHttpRequest();
+                axml3h.open('GET', '2017-2018_fg.json', true);
+                axml3h.addEventListener("load", axCallback3, false);
+                axml3h.send(null);
+                const axml4h = new XMLHttpRequest();
+                axml4h.open('GET', '2017-2018_ft.json', true);
+                axml4h.addEventListener("load", axCallback4, false);
+                axml4h.send(null);
+                const axml5h = new XMLHttpRequest();
+                axml5h.open('GET', '2017-2018_mpg.json', true);
+                axml5h.addEventListener("load", axCallback5, false);
+                axml5h.send(null);
+                const axml6h = new XMLHttpRequest();
+                axml6h.open('GET', '2017-2018_ppg.json', true);
+                axml6h.addEventListener("load", axCallback6, false);
+                axml6h.send(null);
+                const axml7h = new XMLHttpRequest();
+                axml7h.open('GET', '2017-2018_rpg.json', true);
+                axml7h.addEventListener("load", axCallback7, false);
+                axml7h.send(null);
+                const axml8h = new XMLHttpRequest();
+                axml8h.open('GET', '2017-2018_spg.json', true);
+                axml8h.addEventListener("load", axCallback8, false);
+                axml8h.send(null);
+                const axml9h = new XMLHttpRequest();
+                axml9h.open('GET', '2017-2018_thfg.json', true);
+                axml9h.addEventListener("load", axCallback9, false);
+                axml9h.send(null);
+                const axml10h = new XMLHttpRequest();
+                axml10h.open('GET', '2017-2018_tpg.json', true);
+                axml10h.addEventListener("load", axCallback10, false);
+                axml10h.send(null);
+                const axml11h = new XMLHttpRequest();
+                axml11h.open('GET', '2017-2018_twfg.json', true);
+                axml11h.addEventListener("load", axCallback11, false);
+                axml11h.send(null);
+            }
+            else if(year2== "2018"){
+                const axml1i = new XMLHttpRequest();
+                axml1i.open('GET', '2018-2019_apg.json', true);
+                axml1i.addEventListener("load", axCallback, false);
+                axml1i.send(null);
+                const axml2i = new XMLHttpRequest();
+                axml2i.open('GET', '2018-2019_bpg.json', true);
+                axml2i.addEventListener("load", axCallback2, false);
+                axml2i.send(null);
+                const axml3i = new XMLHttpRequest();
+                axml3i.open('GET', '2018-2019_fg.json', true);
+                axml3i.addEventListener("load", axCallback3, false);
+                axml3i.send(null);
+                const axml4i = new XMLHttpRequest();
+                axml4i.open('GET', '2018-2019_ft.json', true);
+                axml4i.addEventListener("load", axCallback4, false);
+                axml4i.send(null);
+                const axml5i = new XMLHttpRequest();
+                axml5i.open('GET', '2018-2019_mpg.json', true);
+                axml5i.addEventListener("load", axCallback5, false);
+                axml5i.send(null);
+                const axml6i = new XMLHttpRequest();
+                axml6i.open('GET', '2018-2019_ppg.json', true);
+                axml6i.addEventListener("load", axCallback6, false);
+                axml6i.send(null);
+                const axml7i = new XMLHttpRequest();
+                axml7i.open('GET', '2018-2019_rpg.json', true);
+                axml7i.addEventListener("load", axCallback7, false);
+                axml7i.send(null);
+                const axml8i = new XMLHttpRequest();
+                axml8i.open('GET', '2018-2019_spg.json', true);
+                axml8i.addEventListener("load", axCallback8, false);
+                axml8i.send(null);
+                const axml9i = new XMLHttpRequest();
+                axml9i.open('GET', '2018-2019_thfg.json', true);
+                axml9i.addEventListener("load", axCallback9, false);
+                axml9i.send(null);
+                const axml10i = new XMLHttpRequest();
+                axml10i.open('GET', '2018-2019_tpg.json', true);
+                axml10i.addEventListener("load", axCallback10, false);
+                axml10i.send(null);
+                const axml11i = new XMLHttpRequest();
+                axml11i.open('GET', '2018-2019_twfg.json', true);
+                axml11i.addEventListener("load", axCallback11, false);
+                axml11i.send(null);
+            }
+            else{
+                const axml1j = new XMLHttpRequest();
+                axml1j.open('GET', '2019-2020_apg.json', true);
+                axml1j.addEventListener("load", axCallback, false);
+                axml1j.send(null);
+                const axml2j = new XMLHttpRequest();
+                axml2j.open('GET', '2019-2020_bpg.json', true);
+                axml2j.addEventListener("load", axCallback2, false);
+                axml2j.send(null);
+                const axml3j = new XMLHttpRequest();
+                axml3j.open('GET', '2019-2020_fg.json', true);
+                axml3j.addEventListener("load", axCallback3, false);
+                axml3j.send(null);
+                const axml4j = new XMLHttpRequest();
+                axml4j.open('GET', '2019-2020_ft.json', true);
+                axml4j.addEventListener("load", axCallback4, false);
+                axml4j.send(null);
+                const axml5j = new XMLHttpRequest();
+                axml5j.open('GET', '2019-2020_mpg.json', true);
+                axml5j.addEventListener("load", axCallback5, false);
+                axml5j.send(null);
+                const axml6j = new XMLHttpRequest();
+                axml6j.open('GET', '2019-2020_ppg.json', true);
+                axml6j.addEventListener("load", axCallback6, false);
+                axml6j.send(null);
+                const axml7j = new XMLHttpRequest();
+                axml7j.open('GET', '2019-2020_rpg.json', true);
+                axml7j.addEventListener("load", axCallback7, false);
+                axml7j.send(null);
+                const axml8j = new XMLHttpRequest();
+                axml8j.open('GET', '2019-2020_spg.json', true);
+                axml8j.addEventListener("load", axCallback8, false);
+                axml8j.send(null);
+                const axml9j = new XMLHttpRequest();
+                axml9j.open('GET', '2019-2020_thfg.json', true);
+                axml9j.addEventListener("load", axCallback9, false);
+                axml9j.send(null);
+                const axml10j = new XMLHttpRequest();
+                axml10j.open('GET', '2019-2020_tpg.json', true);
+                axml10j.addEventListener("load", axCallback10, false);
+                axml10j.send(null);
+                const axml11j = new XMLHttpRequest();
+                axml11j.open('GET', '2019-2020_twfg.json', true);
+                axml11j.addEventListener("load", axCallback11, false);
+                axml11j.send(null);
+            }
+            
+        }
+        
+        
+        /* ------------------------------------------------------------------------------------------------------------------------- */
+        /* ------------------------------------------------------------------------------------------------------------------------- */
+
+        function searchStat(){
+            document.getElementById("cont1").innerHTML = "";
+            let name = document.getElementById("inp1").value;
+            console.log(name);
+            let year = document.getElementById("drp1").value;
+            console.log(year);
+            if (year == "2010"){
+                const xml1 = new XMLHttpRequest();
+                xml1.open('GET', '2010-2011_apg.json', true);
+                xml1.addEventListener("load", ajaxCallback, false);
+                xml1.send(null);
+                const xml2 = new XMLHttpRequest();
+                xml2.open('GET', '2010-2011_bpg.json', true);
+                xml2.addEventListener("load", ajaxCallback2, false);
+                xml2.send(null);
+                const xml3 = new XMLHttpRequest();
+                xml3.open('GET', '2010-2011_fg.json', true);
+                xml3.addEventListener("load", ajaxCallback3, false);
+                xml3.send(null);
+                const xml4 = new XMLHttpRequest();
+                xml4.open('GET', '2010-2011_ft.json', true);
+                xml4.addEventListener("load", ajaxCallback4, false);
+                xml4.send(null);
+                const xml5 = new XMLHttpRequest();
+                xml5.open('GET', '2010-2011_mpg.json', true);
+                xml5.addEventListener("load", ajaxCallback5, false);
+                xml5.send(null);
+                const xml6 = new XMLHttpRequest();
+                xml6.open('GET', '2010-2011_ppg.json', true);
+                xml6.addEventListener("load", ajaxCallback6, false);
+                xml6.send(null);
+                const xml7 = new XMLHttpRequest();
+                xml7.open('GET', '2010-2011_rpg.json', true);
+                xml7.addEventListener("load", ajaxCallback7, false);
+                xml7.send(null);
+                const xml8 = new XMLHttpRequest();
+                xml8.open('GET', '2010-2011_spg.json', true);
+                xml8.addEventListener("load", ajaxCallback8, false);
+                xml8.send(null);
+                const xml9 = new XMLHttpRequest();
+                xml9.open('GET', '2010-2011_thfg.json', true);
+                xml9.addEventListener("load", ajaxCallback9, false);
+                xml9.send(null);
+                const xml10 = new XMLHttpRequest();
+                xml10.open('GET', '2010-2011_tpg.json', true);
+                xml10.addEventListener("load", ajaxCallback10, false);
+                xml10.send(null);
+                const xml11 = new XMLHttpRequest();
+                xml11.open('GET', '2010-2011_twfg.json', true);
+                xml11.addEventListener("load", ajaxCallback11, false);
+                xml11.send(null);
+            } 
+            else if(year == "2011"){
+                const xml1b = new XMLHttpRequest();
+                xml1b.open('GET', '2011-2012_apg.json', true);
+                xml1b.addEventListener("load", ajaxCallback, false);
+                xml1b.send(null);
+                const xml2b = new XMLHttpRequest();
+                xml2b.open('GET', '2011-2012_bpg.json', true);
+                xml2b.addEventListener("load", ajaxCallback2, false);
+                xml2b.send(null);
+                const xml3b = new XMLHttpRequest();
+                xml3b.open('GET', '2011-2012_fg.json', true);
+                xml3b.addEventListener("load", ajaxCallback3, false);
+                xml3b.send(null);
+                const xml4b = new XMLHttpRequest();
+                xml4b.open('GET', '2011-2012_ft.json', true);
+                xml4b.addEventListener("load", ajaxCallback4, false);
+                xml4b.send(null);
+                const xml5b = new XMLHttpRequest();
+                xml5b.open('GET', '2011-2012_mpg.json', true);
+                xml5b.addEventListener("load", ajaxCallback5, false);
+                xml5b.send(null);
+                const xml6b = new XMLHttpRequest();
+                xml6b.open('GET', '2011-2012_ppg.json', true);
+                xml6b.addEventListener("load", ajaxCallback6, false);
+                xml6b.send(null);
+                const xml7b = new XMLHttpRequest();
+                xml7b.open('GET', '2011-2012_rpg.json', true);
+                xml7b.addEventListener("load", ajaxCallback7, false);
+                xml7b.send(null);
+                const xml8b = new XMLHttpRequest();
+                xml8b.open('GET', '2011-2012_spg.json', true);
+                xml8b.addEventListener("load", ajaxCallback8, false);
+                xml8b.send(null);
+                const xml9b = new XMLHttpRequest();
+                xml9b.open('GET', '2011-2012_thfg.json', true);
+                xml9b.addEventListener("load", ajaxCallback9, false);
+                xml9b.send(null);
+                const xml10b = new XMLHttpRequest();
+                xml10b.open('GET', '2011-2012_tpg.json', true);
+                xml10b.addEventListener("load", ajaxCallback10, false);
+                xml10b.send(null);
+                const xml11b = new XMLHttpRequest();
+                xml11b.open('GET', '2011-2012_twfg.json', true);
+                xml11b.addEventListener("load", ajaxCallback11, false);
+                xml11b.send(null);
+            }
+            else if(year == "2012"){
+                const xml1c = new XMLHttpRequest();
+                xml1c.open('GET', '2012-2013_apg.json', true);
+                xml1c.addEventListener("load", ajaxCallback, false);
+                xml1c.send(null);
+                const xml2c = new XMLHttpRequest();
+                xml2c.open('GET', '2012-2013_bpg.json', true);
+                xml2c.addEventListener("load", ajaxCallback2, false);
+                xml2c.send(null);
+                const xml3c = new XMLHttpRequest();
+                xml3c.open('GET', '2012-2013_fg.json', true);
+                xml3c.addEventListener("load", ajaxCallback3, false);
+                xml3c.send(null);
+                const xml4c = new XMLHttpRequest();
+                xml4c.open('GET', '2012-2013_ft.json', true);
+                xml4c.addEventListener("load", ajaxCallback4, false);
+                xml4c.send(null);
+                const xml5c = new XMLHttpRequest();
+                xml5c.open('GET', '2012-2013_mpg.json', true);
+                xml5c.addEventListener("load", ajaxCallback5, false);
+                xml5c.send(null);
+                const xml6c = new XMLHttpRequest();
+                xml6c.open('GET', '2012-2013_ppg.json', true);
+                xml6c.addEventListener("load", ajaxCallback6, false);
+                xml6c.send(null);
+                const xml7c = new XMLHttpRequest();
+                xml7c.open('GET', '2012-2013_rpg.json', true);
+                xml7c.addEventListener("load", ajaxCallback7, false);
+                xml7c.send(null);
+                const xml8c = new XMLHttpRequest();
+                xml8c.open('GET', '2012-2013_spg.json', true);
+                xml8c.addEventListener("load", ajaxCallback8, false);
+                xml8c.send(null);
+                const xml9c = new XMLHttpRequest();
+                xml9c.open('GET', '2012-2013_thfg.json', true);
+                xml9c.addEventListener("load", ajaxCallback9, false);
+                xml9c.send(null);
+                const xml10c = new XMLHttpRequest();
+                xml10c.open('GET', '2012-2013_tpg.json', true);
+                xml10c.addEventListener("load", ajaxCallback10, false);
+                xml10c.send(null);
+                const xml11c = new XMLHttpRequest();
+                xml11c.open('GET', '2012-2013_twfg.json', true);
+                xml11c.addEventListener("load", ajaxCallback11, false);
+                xml11c.send(null);
+            }
+            else if(year == "2013"){
+                const xml1d = new XMLHttpRequest();
+                xml1d.open('GET', '2013-2014_apg.json', true);
+                xml1d.addEventListener("load", ajaxCallback, false);
+                xml1d.send(null);
+                const xml2d = new XMLHttpRequest();
+                xml2d.open('GET', '2013-2014_bpg.json', true);
+                xml2d.addEventListener("load", ajaxCallback2, false);
+                xml2d.send(null);
+                const xml3d = new XMLHttpRequest();
+                xml3d.open('GET', '2013-2014_fg.json', true);
+                xml3d.addEventListener("load", ajaxCallback3, false);
+                xml3d.send(null);
+                const xml4d = new XMLHttpRequest();
+                xml4d.open('GET', '2013-2014_ft.json', true);
+                xml4d.addEventListener("load", ajaxCallback4, false);
+                xml4d.send(null);
+                const xml5d = new XMLHttpRequest();
+                xml5d.open('GET', '2013-2014_mpg.json', true);
+                xml5d.addEventListener("load", ajaxCallback5, false);
+                xml5d.send(null);
+                const xml6d = new XMLHttpRequest();
+                xml6d.open('GET', '2013-2014_ppg.json', true);
+                xml6d.addEventListener("load", ajaxCallback6, false);
+                xml6d.send(null);
+                const xml7d = new XMLHttpRequest();
+                xml7d.open('GET', '2013-2014_rpg.json', true);
+                xml7d.addEventListener("load", ajaxCallback7, false);
+                xml7d.send(null);
+                const xml8d = new XMLHttpRequest();
+                xml8d.open('GET', '2013-2014_spg.json', true);
+                xml8d.addEventListener("load", ajaxCallback8, false);
+                xml8d.send(null);
+                const xml9d = new XMLHttpRequest();
+                xml9d.open('GET', '2013-2014_thfg.json', true);
+                xml9d.addEventListener("load", ajaxCallback9, false);
+                xml9d.send(null);
+                const xml10d = new XMLHttpRequest();
+                xml10d.open('GET', '2013-2014_tpg.json', true);
+                xml10d.addEventListener("load", ajaxCallback10, false);
+                xml10d.send(null);
+                const xml11d = new XMLHttpRequest();
+                xml11d.open('GET', '2013-2014_twfg.json', true);
+                xml11d.addEventListener("load", ajaxCallback11, false);
+                xml11d.send(null);
+            }
+            else if(year == "2014"){
+                const xml1e = new XMLHttpRequest();
+                xml1e.open('GET', '2014-2015_apg.json', true);
+                xml1e.addEventListener("load", ajaxCallback, false);
+                xml1e.send(null);
+                const xml2e = new XMLHttpRequest();
+                xml2e.open('GET', '2014-2015_bpg.json', true);
+                xml2e.addEventListener("load", ajaxCallback2, false);
+                xml2e.send(null);
+                const xml3e = new XMLHttpRequest();
+                xml3e.open('GET', '2014-2015_fg.json', true);
+                xml3e.addEventListener("load", ajaxCallback3, false);
+                xml3e.send(null);
+                const xml4e = new XMLHttpRequest();
+                xml4e.open('GET', '2014-2015_ft.json', true);
+                xml4e.addEventListener("load", ajaxCallback4, false);
+                xml4e.send(null);
+                const xml5e = new XMLHttpRequest();
+                xml5e.open('GET', '2014-2015_mpg.json', true);
+                xml5e.addEventListener("load", ajaxCallback5, false);
+                xml5e.send(null);
+                const xml6e = new XMLHttpRequest();
+                xml6e.open('GET', '2014-2015_ppg.json', true);
+                xml6e.addEventListener("load", ajaxCallback6, false);
+                xml6e.send(null);
+                const xml7e = new XMLHttpRequest();
+                xml7e.open('GET', '2014-2015_rpg.json', true);
+                xml7e.addEventListener("load", ajaxCallback7, false);
+                xml7e.send(null);
+                const xml8e = new XMLHttpRequest();
+                xml8e.open('GET', '2014-2015_spg.json', true);
+                xml8e.addEventListener("load", ajaxCallback8, false);
+                xml8e.send(null);
+                const xml9e = new XMLHttpRequest();
+                xml9e.open('GET', '2014-2015_thfg.json', true);
+                xml9e.addEventListener("load", ajaxCallback9, false);
+                xml9e.send(null);
+                const xml10e = new XMLHttpRequest();
+                xml10e.open('GET', '2014-2015_tpg.json', true);
+                xml10e.addEventListener("load", ajaxCallback10, false);
+                xml10e.send(null);
+                const xml11e = new XMLHttpRequest();
+                xml11e.open('GET', '2014-2015_twfg.json', true);
+                xml11e.addEventListener("load", ajaxCallback11, false);
+                xml11e.send(null);
+            }
+            else if(year == "2015"){
+                const xml1f = new XMLHttpRequest();
+                xml1f.open('GET', '2015-2016_apg.json', true);
+                xml1f.addEventListener("load", ajaxCallback, false);
+                xml1f.send(null);
+                const xml2f = new XMLHttpRequest();
+                xml2f.open('GET', '2015-2016_bpg.json', true);
+                xml2f.addEventListener("load", ajaxCallback2, false);
+                xml2f.send(null);
+                const xml3f = new XMLHttpRequest();
+                xml3f.open('GET', '2015-2016_fg.json', true);
+                xml3f.addEventListener("load", ajaxCallback3, false);
+                xml3f.send(null);
+                const xml4f = new XMLHttpRequest();
+                xml4f.open('GET', '2015-2016_ft.json', true);
+                xml4f.addEventListener("load", ajaxCallback4, false);
+                xml4f.send(null);
+                const xml5f = new XMLHttpRequest();
+                xml5f.open('GET', '2015-2016_mpg.json', true);
+                xml5f.addEventListener("load", ajaxCallback5, false);
+                xml5f.send(null);
+                const xml6f = new XMLHttpRequest();
+                xml6f.open('GET', '2015-2016_ppg.json', true);
+                xml6f.addEventListener("load", ajaxCallback6, false);
+                xml6f.send(null);
+                const xml7f = new XMLHttpRequest();
+                xml7f.open('GET', '2015-2016_rpg.json', true);
+                xml7f.addEventListener("load", ajaxCallback7, false);
+                xml7f.send(null);
+                const xml8f = new XMLHttpRequest();
+                xml8f.open('GET', '2015-2016_spg.json', true);
+                xml8f.addEventListener("load", ajaxCallback8, false);
+                xml8f.send(null);
+                const xml9f = new XMLHttpRequest();
+                xml9f.open('GET', '2015-2016_thfg.json', true);
+                xml9f.addEventListener("load", ajaxCallback9, false);
+                xml9f.send(null);
+                const xml10f = new XMLHttpRequest();
+                xml10f.open('GET', '2015-2016_tpg.json', true);
+                xml10f.addEventListener("load", ajaxCallback10, false);
+                xml10f.send(null);
+                const xml11f = new XMLHttpRequest();
+                xml11f.open('GET', '2015-2016_twfg.json', true);
+                xml11f.addEventListener("load", ajaxCallback11, false);
+                xml11f.send(null);
+            }
+            else if(year == "2016"){
+                const xml1g = new XMLHttpRequest();
+                xml1g.open('GET', '2016-2017_apg.json', true);
+                xml1g.addEventListener("load", ajaxCallback, false);
+                xml1g.send(null);
+                const xml2g = new XMLHttpRequest();
+                xml2g.open('GET', '2016-2017_bpg.json', true);
+                xml2g.addEventListener("load", ajaxCallback2, false);
+                xml2g.send(null);
+                const xml3g = new XMLHttpRequest();
+                xml3g.open('GET', '2016-2017_fg.json', true);
+                xml3g.addEventListener("load", ajaxCallback3, false);
+                xml3g.send(null);
+                const xml4g = new XMLHttpRequest();
+                xml4g.open('GET', '2016-2017_ft.json', true);
+                xml4g.addEventListener("load", ajaxCallback4, false);
+                xml4g.send(null);
+                const xml5g = new XMLHttpRequest();
+                xml5g.open('GET', '2016-2017_mpg.json', true);
+                xml5g.addEventListener("load", ajaxCallback5, false);
+                xml5g.send(null);
+                const xml6g = new XMLHttpRequest();
+                xml6g.open('GET', '2016-2017_ppg.json', true);
+                xml6g.addEventListener("load", ajaxCallback6, false);
+                xml6g.send(null);
+                const xml7g = new XMLHttpRequest();
+                xml7g.open('GET', '2016-2017_rpg.json', true);
+                xml7g.addEventListener("load", ajaxCallback7, false);
+                xml7g.send(null);
+                const xml8g = new XMLHttpRequest();
+                xml8g.open('GET', '2016-2017_spg.json', true);
+                xml8g.addEventListener("load", ajaxCallback8, false);
+                xml8g.send(null);
+                const xml9g = new XMLHttpRequest();
+                xml9g.open('GET', '2016-2017_thfg.json', true);
+                xml9g.addEventListener("load", ajaxCallback9, false);
+                xml9g.send(null);
+                const xml10g = new XMLHttpRequest();
+                xml10g.open('GET', '2016-2017_tpg.json', true);
+                xml10g.addEventListener("load", ajaxCallback10, false);
+                xml10g.send(null);
+                const xml11g = new XMLHttpRequest();
+                xml11g.open('GET', '2016-2017_twfg.json', true);
+                xml11g.addEventListener("load", ajaxCallback11, false);
+                xml11g.send(null);
+            }
+            else if(year == "2017"){
+                const xml1h = new XMLHttpRequest();
+                xml1h.open('GET', '2017-2018_apg.json', true);
+                xml1h.addEventListener("load", ajaxCallback, false);
+                xml1h.send(null);
+                const xml2h = new XMLHttpRequest();
+                xml2h.open('GET', '2017-2018_bpg.json', true);
+                xml2h.addEventListener("load", ajaxCallback2, false);
+                xml2h.send(null);
+                const xml3h = new XMLHttpRequest();
+                xml3h.open('GET', '2017-2018_fg.json', true);
+                xml3h.addEventListener("load", ajaxCallback3, false);
+                xml3h.send(null);
+                const xml4h = new XMLHttpRequest();
+                xml4h.open('GET', '2017-2018_ft.json', true);
+                xml4h.addEventListener("load", ajaxCallback4, false);
+                xml4h.send(null);
+                const xml5h = new XMLHttpRequest();
+                xml5h.open('GET', '2017-2018_mpg.json', true);
+                xml5h.addEventListener("load", ajaxCallback5, false);
+                xml5h.send(null);
+                const xml6h = new XMLHttpRequest();
+                xml6h.open('GET', '2017-2018_ppg.json', true);
+                xml6h.addEventListener("load", ajaxCallback6, false);
+                xml6h.send(null);
+                const xml7h = new XMLHttpRequest();
+                xml7h.open('GET', '2017-2018_rpg.json', true);
+                xml7h.addEventListener("load", ajaxCallback7, false);
+                xml7h.send(null);
+                const xml8h = new XMLHttpRequest();
+                xml8h.open('GET', '2017-2018_spg.json', true);
+                xml8h.addEventListener("load", ajaxCallback8, false);
+                xml8h.send(null);
+                const xml9h = new XMLHttpRequest();
+                xml9h.open('GET', '2017-2018_thfg.json', true);
+                xml9h.addEventListener("load", ajaxCallback9, false);
+                xml9h.send(null);
+                const xml10h = new XMLHttpRequest();
+                xml10h.open('GET', '2017-2018_tpg.json', true);
+                xml10h.addEventListener("load", ajaxCallback10, false);
+                xml10h.send(null);
+                const xml11h = new XMLHttpRequest();
+                xml11h.open('GET', '2017-2018_twfg.json', true);
+                xml11h.addEventListener("load", ajaxCallback11, false);
+                xml11h.send(null);
+            }
+            else if(year == "2018"){
+                const xml1i = new XMLHttpRequest();
+                xml1i.open('GET', '2018-2019_apg.json', true);
+                xml1i.addEventListener("load", ajaxCallback, false);
+                xml1i.send(null);
+                const xml2i = new XMLHttpRequest();
+                xml2i.open('GET', '2018-2019_bpg.json', true);
+                xml2i.addEventListener("load", ajaxCallback2, false);
+                xml2i.send(null);
+                const xml3i = new XMLHttpRequest();
+                xml3i.open('GET', '2018-2019_fg.json', true);
+                xml3i.addEventListener("load", ajaxCallback3, false);
+                xml3i.send(null);
+                const xml4i = new XMLHttpRequest();
+                xml4i.open('GET', '2018-2019_ft.json', true);
+                xml4i.addEventListener("load", ajaxCallback4, false);
+                xml4i.send(null);
+                const xml5i = new XMLHttpRequest();
+                xml5i.open('GET', '2018-2019_mpg.json', true);
+                xml5i.addEventListener("load", ajaxCallback5, false);
+                xml5i.send(null);
+                const xml6i = new XMLHttpRequest();
+                xml6i.open('GET', '2018-2019_ppg.json', true);
+                xml6i.addEventListener("load", ajaxCallback6, false);
+                xml6i.send(null);
+                const xml7i = new XMLHttpRequest();
+                xml7i.open('GET', '2018-2019_rpg.json', true);
+                xml7i.addEventListener("load", ajaxCallback7, false);
+                xml7i.send(null);
+                const xml8i = new XMLHttpRequest();
+                xml8i.open('GET', '2018-2019_spg.json', true);
+                xml8i.addEventListener("load", ajaxCallback8, false);
+                xml8i.send(null);
+                const xml9i = new XMLHttpRequest();
+                xml9i.open('GET', '2018-2019_thfg.json', true);
+                xml9i.addEventListener("load", ajaxCallback9, false);
+                xml9i.send(null);
+                const xml10i = new XMLHttpRequest();
+                xml10i.open('GET', '2018-2019_tpg.json', true);
+                xml10i.addEventListener("load", ajaxCallback10, false);
+                xml10i.send(null);
+                const xml11i = new XMLHttpRequest();
+                xml11i.open('GET', '2018-2019_twfg.json', true);
+                xml11i.addEventListener("load", ajaxCallback11, false);
+                xml11i.send(null);
+            }
+            else{
+                const xml1j = new XMLHttpRequest();
+                xml1j.open('GET', '2019-2020_apg.json', true);
+                xml1j.addEventListener("load", ajaxCallback, false);
+                xml1j.send(null);
+                const xml2j = new XMLHttpRequest();
+                xml2j.open('GET', '2019-2020_bpg.json', true);
+                xml2j.addEventListener("load", ajaxCallback2, false);
+                xml2j.send(null);
+                const xml3j = new XMLHttpRequest();
+                xml3j.open('GET', '2019-2020_fg.json', true);
+                xml3j.addEventListener("load", ajaxCallback3, false);
+                xml3j.send(null);
+                const xml4j = new XMLHttpRequest();
+                xml4j.open('GET', '2019-2020_ft.json', true);
+                xml4j.addEventListener("load", ajaxCallback4, false);
+                xml4j.send(null);
+                const xml5j = new XMLHttpRequest();
+                xml5j.open('GET', '2019-2020_mpg.json', true);
+                xml5j.addEventListener("load", ajaxCallback5, false);
+                xml5j.send(null);
+                const xml6j = new XMLHttpRequest();
+                xml6j.open('GET', '2019-2020_ppg.json', true);
+                xml6j.addEventListener("load", ajaxCallback6, false);
+                xml6j.send(null);
+                const xml7j = new XMLHttpRequest();
+                xml7j.open('GET', '2019-2020_rpg.json', true);
+                xml7j.addEventListener("load", ajaxCallback7, false);
+                xml7j.send(null);
+                const xml8j = new XMLHttpRequest();
+                xml8j.open('GET', '2019-2020_spg.json', true);
+                xml8j.addEventListener("load", ajaxCallback8, false);
+                xml8j.send(null);
+                const xml9j = new XMLHttpRequest();
+                xml9j.open('GET', '2019-2020_thfg.json', true);
+                xml9j.addEventListener("load", ajaxCallback9, false);
+                xml9j.send(null);
+                const xml10j = new XMLHttpRequest();
+                xml10j.open('GET', '2019-2020_tpg.json', true);
+                xml10j.addEventListener("load", ajaxCallback10, false);
+                xml10j.send(null);
+                const xml11j = new XMLHttpRequest();
+                xml11j.open('GET', '2019-2020_twfg.json', true);
+                xml11j.addEventListener("load", ajaxCallback11, false);
+                xml11j.send(null);
+            }
+        }
+    </script>
+</body>
+
+
+</html>
